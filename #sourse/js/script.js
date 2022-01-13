@@ -14,6 +14,15 @@ window.onload = function () {
 
   //------------------------------//
 
+  const preloader = document.querySelector(".preloader");
+  preloader.style.cssText = `
+    opacity: 0;
+    visibility: hidden;
+  `;
+
+
+  // ---------------------------- //
+
   const parallax = document.querySelector('.parallax');
   if (parallax) {
     const content = document.querySelector('.content__container');
@@ -22,9 +31,9 @@ window.onload = function () {
     const human = document.querySelector('.images-parallax__human');
 
     // Коеффиценты
-    const forCloud = 40;
+    const forCloud = 30;
     const forMountains = 20;
-    const forHuman = 10;
+    const forHuman = 15;
 
     // Скорость анимации
     const speed = 0.05;
