@@ -9,6 +9,7 @@ window.onload = function () {
     }
   }
   ibg();
+
   //------------------------------//
 
   const iconMenu = document.querySelector('.icon-menu');
