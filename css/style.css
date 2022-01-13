@@ -238,8 +238,8 @@ body {
   width: 250px;
   height: 250px;
   background-size: contain;
-  -webkit-animation: spin 1s linear infinite;
-          animation: spin 1s linear infinite;
+  -webkit-animation: spin 1.5s linear infinite;
+          animation: spin 1.5s linear infinite;
 }
 
 .preloader {
@@ -251,6 +251,10 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -259,6 +263,11 @@ body {
           justify-content: center;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
+}
+.preloader p {
+  margin-top: 15px;
+  font-size: 30px;
+  color: #000;
 }
 
 @-webkit-keyframes spin {
