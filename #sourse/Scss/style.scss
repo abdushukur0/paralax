@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+
+@import "nullStyle.scss";
+@import "adaptive-value.scss";
+
+$maxWidth: 1440;
+$minWidth:320;
+$maxWidthContainer:1310;
+$maxWidthContainer2:1170;
+
+$orange: #FEC053;
+$perple: #8758F4;
+$black: #0D0D0D;
+
+$md1: maxWidthContainer;
+$md2:992;
+$md3:768;
+$md4:480;
+
+body{
+  font-family: Montserrat;
+  background-color: #181818;
+  color: #fff;
+  &._lock{
+    overflow: hidden;
+  }
+}
+
+._wrapper {
+  max-width: $maxWidth + px;
+  margin: 0 auto;
+}
+
+._container {
+  max-width: $maxWidthContainer + px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+@import "header.scss";
+@import "body.scss";
+@import "footer.scss";
+@import "modificators.scss";
