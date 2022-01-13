@@ -4,8 +4,6 @@
 	border: 0;
 }
 *,*:before,*:after{
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 :focus,:active{outline: none;}
@@ -18,10 +16,9 @@ html,body{
 	width: 100%;
 	font-size: 100%;
 	line-height: 1;
-	font-size: 14px;
-	-ms-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
+	font-size: 16px;
+  color: #fff;
+  background-color: #0b1d26;
 }
 input,button,textarea{font-family:inherit;}
 
