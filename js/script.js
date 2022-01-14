@@ -1,1 +1,97 @@
-"use strict";window.onload=function(){!function(){let e=document.querySelectorAll("._ibg");for(var t=0;t<e.length;t++)e[t].querySelector("img")&&(e[t].style.backgroundImage="url("+e[t].querySelector("img").getAttribute("src")+")")}();document.querySelector(".preloader").style.cssText="\n    opacity: 0;\n    visibility: hidden;\n  ";const e=document.querySelector(".parallax");if(e){document.querySelector(".content__container");const t=document.querySelector(".images-parallax__clouds"),r=document.querySelector(".images-parallax__mountains"),n=document.querySelector(".images-parallax__human"),o=30,a=20,s=15,l=.05;let c=0,u=0,i=0,m=0;function d(){c+=(i-c)*l,u+=(m-u)*l,t.style.cssText=`transform: translate(${-c/o}%,${-u/o}%);`,r.style.cssText=`transform: translate(${c/a}%,${u/a}%);`,n.style.cssText=`transform: translate(${-c/s}%,${-u/s}%);`,requestAnimationFrame(d)}d(),e.addEventListener("mousemove",(function(t){const r=e.offsetWidth,n=e.offsetHeight,o=t.pageX-r/2,a=t.pageY-n/2;i=o/r*100,m=a/n*100}))}};
+"use strict"
+
+window.onload = function () {
+  //ibg
+  function ibg() {
+    let ibg = document.querySelectorAll("._ibg");
+    for (var i = 0; i < ibg.length; i++) {
+      if (ibg[i].querySelector('img')) {
+        ibg[i].style.backgroundImage = 'url(' + ibg[i].querySelector('img').getAttribute('src') + ')';
+      }
+    }
+  }
+  ibg();
+
+  //------------------------------//
+
+  const preloader = document.querySelector(".preloader");
+  preloader.style.cssText = `
+    opacity: 0;
+    visibility: hidden;
+  `;
+
+
+  // ---------------------------- //
+
+  const parallax = document.querySelector('.parallax');
+  if (parallax) {
+    const content = document.querySelector('.parallax__container');
+    const clouds = document.querySelector('.images-parallax__clouds');
+    const mountains = document.querySelector('.images-parallax__mountains');
+    const human = document.querySelector('.images-parallax__human');
+
+    // Коеффиценты
+    const forCloud = 30;
+    const forMountains = 20;
+    const forHuman = 15;
+
+    // Скорость анимации
+    const speed = 0.05;
+
+    //Обьявление переменных
+    let positionX = 0, positionY = 0;
+    let coordXprocent = 0, coordYprocent = 0;
+
+    function setMouseParalaxStyle() {
+      const distX = coordXprocent - positionX;
+      const distY = coordYprocent - positionY;
+
+      positionX = positionX + (distX * speed);
+      positionY = positionY + (distY * speed);
+
+      // передача стилей
+      clouds.style.cssText = `transform: translate(${-positionX / forCloud}%,${-positionY / forCloud}%);`;
+      mountains.style.cssText = `transform: translate(${positionX / forMountains}%,${positionY / forMountains}%);`;
+      human.style.cssText = `transform: translate(${-positionX / forHuman}%,${-positionY / forHuman}%);`;
+
+      requestAnimationFrame(setMouseParalaxStyle);
+    }
+    setMouseParalaxStyle();
+
+    parallax.addEventListener("mousemove", function (e) {
+      // Получение ширины и высоты блока
+      const parallaxWidth = parallax.offsetWidth;
+      const parallaxHeigth = parallax.offsetHeight;
+
+      // Ноль по середине
+      const coordX = e.pageX - parallaxWidth / 2;
+      const coordY = e.pageY - parallaxHeigth / 2;
+
+      // Получение в процентах
+      coordXprocent = coordX / parallaxWidth * 100;
+      coordYprocent = coordY / parallaxHeigth * 100;
+    });
+  }
+
+  // Параллакс при скроле
+  let threshholdSets = [];
+  for (let i = 0; i <= 1.0; i += 0.005) {
+    threshholdSets.push(i);
+  }
+  const callback = function (entries, observer) {
+    const scrollTopProcent = window.pageYOffset / parallax.offsetHeight * 100;
+    setParallaxItemsStyle(scrollTopProcent);
+  };
+
+  const observer = new IntersectionObserver(callback, {
+    threshold: threshholdSets
+  });
+
+  observer.observe(document.querySelector('.content'));
+
+  function setParallaxItemsStyle(scrollTopProcent) {
+    document.querySelector('.parallax__container').style.cssText = `transform: translate(0%, -${scrollTopProcent / 9}%);`;
+    document.querySelector('.images-parallax__mountains').parentElement.style.cssText = `transform: translate(0%, -${scrollTopProcent / 6}%);`;
+    document.querySelector('.images-parallax__human').parentElement.style.cssText = `transform: translate(0%, -${scrollTopProcent / 3}%);`;
+  }
+}

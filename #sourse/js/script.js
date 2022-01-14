@@ -25,7 +25,7 @@ window.onload = function () {
 
   const parallax = document.querySelector('.parallax');
   if (parallax) {
-    const content = document.querySelector('.content__container');
+    const content = document.querySelector('.parallax__container');
     const clouds = document.querySelector('.images-parallax__clouds');
     const mountains = document.querySelector('.images-parallax__mountains');
     const human = document.querySelector('.images-parallax__human');
@@ -71,5 +71,27 @@ window.onload = function () {
       coordXprocent = coordX / parallaxWidth * 100;
       coordYprocent = coordY / parallaxHeigth * 100;
     });
+  }
+
+  // Параллакс при скроле
+  let threshholdSets = [];
+  for (let i = 0; i <= 1.0; i += 0.005) {
+    threshholdSets.push(i);
+  }
+  const callback = function (entries, observer) {
+    const scrollTopProcent = window.pageYOffset / parallax.offsetHeight * 100;
+    setParallaxItemsStyle(scrollTopProcent);
+  };
+
+  const observer = new IntersectionObserver(callback, {
+    threshold: threshholdSets
+  });
+
+  observer.observe(document.querySelector('.content'));
+
+  function setParallaxItemsStyle(scrollTopProcent) {
+    document.querySelector('.parallax__container').style.cssText = `transform: translate(0%, -${scrollTopProcent / 9}%);`;
+    document.querySelector('.images-parallax__mountains').parentElement.style.cssText = `transform: translate(0%, -${scrollTopProcent / 6}%);`;
+    document.querySelector('.images-parallax__human').parentElement.style.cssText = `transform: translate(0%, -${scrollTopProcent / 3}%);`;
   }
 }
